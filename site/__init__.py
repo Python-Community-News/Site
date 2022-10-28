@@ -11,6 +11,7 @@ class Site(Site):
         # build and render it as part of the site.
         "CODE_OF_CONDUCT_URL": "https://github.com/Python-Community-News/.github/blob/main/CODE_OF_CONDUCT.md",
         "GITHUB_URL": "https://github.com/Python-Community-News",
+        "PODCAST_URL": "https://pythoncommunitynews.transistor.fm",
         "SITE_TITLE": "Python Community News",
         "SITE_URL": "https://pythoncommunitynews.com",
         "YOUTUBE_URL": "https://www.youtube.com/channel/UCA8N-T_aEhHLzwwn47K-UFw",

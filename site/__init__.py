@@ -1,4 +1,4 @@
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from render_engine.blog import Blog
 from render_engine.page import Page
 from render_engine.site import Site
@@ -17,7 +17,10 @@ class Site(Site):
         "YOUTUBE_URL": "https://www.youtube.com/channel/UCA8N-T_aEhHLzwwn47K-UFw",
     }
 
-    engine = Environment(loader=FileSystemLoader(["site/templates", "templates"]))
+    engine = Environment(
+        loader=FileSystemLoader(["site/templates", "templates"]),
+        undefined=StrictUndefined,
+    )
 
 
 if __name__ == "__main__":

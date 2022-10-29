@@ -1,5 +1,3 @@
-gh_issues
-render_engine
-typer
-pip-tools
-gh-issues
+# These are the packages needed to build the website
+
+render-engine

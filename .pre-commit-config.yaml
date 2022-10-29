@@ -8,7 +8,7 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: requirements-txt-fixer
-        files: requirements.in
+        files: requirements.*.in
 
   - repo: https://github.com/psf/black
     rev: 22.10.0
@@ -29,11 +29,30 @@ repos:
     rev: 6.9.0
     hooks:
       - id: pip-compile
-        name: Compile Python requirements
-
+        name: Compile site requirements
+        files: requirements.(in|txt)
 
       - id: pip-compile
-        name: Upgrade Python dependencies
+        name: Compile automation requirements
+        files: requirements.*.(in|txt)
+        args:
+          - requirements-automate.in
+          - --output-file=requirements-automate.txt
+
+      - id: pip-compile
+        alias: pip-compile-upgrade
+        name: Upgrade site dependencies
+        files: requirements.(in|txt)
         stages: [manual]
         args:
           - --upgrade
+
+      - id: pip-compile
+        alias: pip-compile-upgrade
+        name: Upgrade automation dependencies
+        files: requirements.*.(in|txt)
+        stages: [manual]
+        args:
+          - requirements-automate.in
+          - --upgrade
+          - --output-file=requirements-automate.txt

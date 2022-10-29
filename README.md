@@ -4,10 +4,10 @@
 
 Built Using Render Engine, a Static Site Generator for Python. Published using GitHub Pages.
 
-TODO: Add automation to publish to GitHub Pages.
-
 ## Contributing
-TODO: Create Contributing Guide
+1. Search for Issues/Create a New One
+2. Wait for the issue to be assigned to you
+3. Fork the Code, make changes and test
+4. Submit PR
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+For more details check out the organization's [CONTRIBUTING](https://github.com/Python-Community-News/.github/blob/main/CONTRIBUTING.md) doc

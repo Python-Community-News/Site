@@ -1,6 +1,5 @@
 # These are the requirements to run the automation tasks
 
--r requirements.in
-
-typer
+-r requirements.txt
 gh-issues
+typer

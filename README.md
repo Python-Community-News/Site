@@ -1,13 +1,14 @@
-# GitHub Community News (Site)
+# Python Community News (Site)
 
-<https://pythoncommunitynews.com>
+This is the repo for the [Python Community News](https://pythoncommunitynews.com) site.
+## Community Standards
 
-Built Using Render Engine, a Static Site Generator for Python. Published using GitHub Pages.
+This project adheres to the standards highlighted in the [organization repo](https://github.com/python-community-news/.github). You should be able to find the code of conduct, contributing guidelines, and other community standards in the **GitHub Interface** or the [organization repo](https://github.com/python-community-news/.github).
 
-TODO: Add automation to publish to GitHub Pages.
+## How it works
 
-## Contributing
-TODO: Create Contributing Guide
+### Episodes come from [Topics](https://github.com/python-community-news)
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+You each episode is built from [issues in the topics repo](https://github.com/Python-Community-News/Topics/issues?q=is%3Aissue+label%3Apublish). These issues converted into a markdown file using [GH-Issues](https://github.com/python-community-news/gh-issues)
+
+Those generated markdown files are then published to the website using [Render Engine](https://github.com/kjaymiller/render_engine).

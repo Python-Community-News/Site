@@ -56,3 +56,12 @@ repos:
           - requirements-automate.in
           - --upgrade
           - --output-file=requirements-automate.txt
+
+  - repo: https://github.com/Riverside-Healthcare/djlint
+    rev: v1.19.3
+    hooks:
+      - id: djlint-jinja
+        name: Autoformat jinja files
+        types_or: [html]
+        args:
+          - --reformat

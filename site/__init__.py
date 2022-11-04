@@ -1,3 +1,6 @@
+from pathlib import Path
+
+import pytailwindcss
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from render_engine.blog import Blog
 from render_engine.page import Page
@@ -21,6 +24,19 @@ class Site(Site):
         loader=FileSystemLoader(["site/templates", "templates"]),
         undefined=StrictUndefined,
     )
+
+    def render_static(self, directory):
+        super().render_static(directory)
+        for file in Path(directory).glob("**/*.css"):
+            pytailwindcss.run(
+                auto_install=True,
+                tailwindcss_cli_args=[
+                    "--input",
+                    f"{file.absolute()}",
+                    "--output",
+                    f"{(self.path / file).absolute()}",
+                ],
+            )
 
 
 if __name__ == "__main__":

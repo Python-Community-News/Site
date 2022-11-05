@@ -4,7 +4,7 @@ import typer
 from gh_issues import Issue, Repo
 from jinja2 import Environment, FileSystemLoader
 
-environment = Environment(loader=FileSystemLoader("site/templates"))
+environment = Environment(loader=FileSystemLoader("publish"))
 
 PCN = Repo("python-community-news", "topics")
 

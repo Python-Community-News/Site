@@ -1,5 +1,5 @@
 ---
-title: {{issue.title}} - PYthon Community News {{issue.episode_date}}
+title: {{issue.title}} - Python Community News {{issue.episode_date}}
 slug: "{{issue.episode_date}}"
 date: {{issue._created_at}}
 podcast: {{issue.podcast}}

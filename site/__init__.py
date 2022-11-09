@@ -51,6 +51,14 @@ if __name__ == "__main__":
     class index(Page):
         template = "index.html"
 
+    @site.render_page
+    class rss_redirect_notice(Page):
+        template = "python-community-news-archive.rss"
+
+        @property
+        def url(self):
+            return Path("python-community-news-archive.rss")
+
     @site.render_collection
     class archive(Blog):
         has_archive = True

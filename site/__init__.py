@@ -3,6 +3,7 @@ from pathlib import Path
 import pytailwindcss
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from render_engine.blog import Blog
+from render_engine.feeds import RSSFeed
 from render_engine.page import Page
 from render_engine.site import Site
 
@@ -39,12 +40,24 @@ class Site(Site):
             )
 
 
+class Feed(RSSFeed):
+    extension = "xml"
+
+
 if __name__ == "__main__":
     site = Site(static="static")
 
     @site.render_page
     class index(Page):
         template = "index.html"
+
+    @site.render_page
+    class rss_redirect_notice(Page):
+        template = "python-community-news-archive.rss"
+
+        @property
+        def url(self):
+            return Path("python-community-news-archive.rss")
 
     @site.render_collection
     class archive(Blog):
@@ -53,3 +66,4 @@ if __name__ == "__main__":
         content_path = "./content"
         template = "new_post.html"
         archive_template: str = "archive.html"
+        feed = Feed

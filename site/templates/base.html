@@ -8,6 +8,10 @@
             {% block header %}{% endblock %}
         {{ SITE_TITLE }}</title>
         <link rel="stylesheet" href="/static/style.css" />
+        <link rel="alternate"
+              type="application/rss+xml"
+              title="Python Community News Archive"
+              href="/python-community-news-archive.xml">
     </head>
     <body>
         <header class="bg-blue-500 p-5">
@@ -30,6 +34,9 @@
                     </h4>
                     <h4 class="mx-2 hover:underline">
                         <a href="/archive.html">Archive</a>
+                    </h4>
+                    <h4 class="mx-2 hover:underline">
+                        <a href="/python-community-news-archive.xml">RSS</a>
                     </h4>
                 </nav>
             </div>

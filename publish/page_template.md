@@ -14,3 +14,21 @@ submitted by [{{topic._user.login}}]({{topic._user.html_url}}) on {{topic._creat
 {{topic.summary}}
 
 {% endfor %}
+
+
+{% set conferences = issue.get_content_issues("conferences")|list %}
+
+{% if conferences %}
+
+## Conferences and Events
+
+{% for conference in conferences %}
+### [{{conference.title}}]({{conference.url}})
+
+submitted by [{{conference._user.login}}]({{conference._user.html_url}}) on {{conference._created_at}}
+
+{{conference.summary}}
+
+{% endfor %}
+
+{% endif %}

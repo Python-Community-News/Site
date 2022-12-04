@@ -1,0 +1,29 @@
+name: Build Episode
+
+on:
+  repository_dispatch:
+    types: [publish]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-automate.txt
+      - name: build page from issue
+        env:
+          issue_number: ${{ github.event.client_payload.issue_number }}
+        run: python publish/add_episode_from_issue.py $issue_number
+      - name: commit and push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "kjaymiller-via-[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "build episode $issue_number"
+          git push

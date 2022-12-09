@@ -15,6 +15,14 @@ submitted by [{{topic._user.login}}]({{topic._user.html_url}}) on {{topic._creat
 
 {% endfor %}
 
+{% for topic in issue.get_content_issues("shorts") %}
+### [{{topic.title}}]({{topic.url}})
+
+submitted by [{{topic._user.login}}]({{topic._user.html_url}}) on {{topic._created_at}}
+
+{{topic.summary}}
+
+{% endfor %}
 
 {% set conferences = issue.get_content_issues("conferences")|list %}
 
@@ -27,8 +35,8 @@ submitted by [{{topic._user.login}}]({{topic._user.html_url}}) on {{topic._creat
 
 submitted by [{{conference._user.login}}]({{conference._user.html_url}}) on {{conference._created_at}}
 
+{% if conference['summary'] %}
 {{conference.summary}}
-
+{% endif %}
 {% endfor %}
-
 {% endif %}

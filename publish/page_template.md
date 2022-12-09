@@ -22,6 +22,14 @@ submitted by [{{topic._user.login}}]({{topic._user.html_url}}) on {{topic._creat
 
 {{topic.summary}}
 
+<iframe width="560"
+                height="315"
+                src="https://www.youtube.com/embed/{{topic.youtube}}"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+
 {% endfor %}
 
 {% set conferences = issue.get_content_issues("conferences")|list %}

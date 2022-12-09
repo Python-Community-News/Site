@@ -19,7 +19,9 @@ jobs:
       - name: build page from issue
         env:
           issue_number: ${{ github.event.client_payload.issue_number }}
-        run: python publish/add_episode_from_issue.py $issue_number
+        run: |
+          echo "running issue: "$issue_number
+          python publish/add_episode_from_issue.py $issue_number
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:

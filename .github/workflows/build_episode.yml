@@ -8,7 +8,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
@@ -20,10 +20,13 @@ jobs:
         env:
           issue_number: ${{ github.event.client_payload.issue_number }}
         run: python publish/add_episode_from_issue.py $issue_number
-      - name: commit and push
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "kjaymiller-via-[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "build episode $issue_number"
-          git push
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN}}
+          commit-message: Create ${{ github.event.client_payload.issue_number }}
+          title: Create ${{ github.event.client_payload.issue_number }}
+          body: Creates ${{ github.event.client_payload.issue_number }}
+          branch: bot-creates-topic-publish-${{ github.event.client_payload.issue_number }}
+          delete-branch: true
+          labels: publish

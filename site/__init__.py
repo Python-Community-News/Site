@@ -47,11 +47,11 @@ class Feed(RSSFeed):
 if __name__ == "__main__":
     site = Site(static="static")
 
-    @site.render_page
+    @site.page
     class index(Page):
         template = "index.html"
 
-    @site.render_page
+    @site.page
     class rss_redirect_notice(Page):
         template = "python-community-news-archive.rss"
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         def url(self):
             return Path("python-community-news-archive.rss")
 
-    @site.render_collection
+    @site.collection
     class archive(Blog):
         has_archive = True
         output_path = "./"
@@ -67,3 +67,5 @@ if __name__ == "__main__":
         template = "new_post.html"
         archive_template: str = "archive.html"
         feed = Feed
+
+    site.render()

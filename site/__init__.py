@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytailwindcss
-from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from jinja2 import Environment, FileSystemLoader
 from render_engine.blog import Blog
 from render_engine.feeds import RSSFeed
 from render_engine.page import Page
@@ -20,10 +20,11 @@ class Site(Site):
         "SITE_URL": "https://pythoncommunitynews.com",
         "YOUTUBE_URL": "https://www.youtube.com/channel/UCA8N-T_aEhHLzwwn47K-UFw",
     }
+    static = "static"
 
     engine = Environment(
         loader=FileSystemLoader(["site/templates", "templates"]),
-        undefined=StrictUndefined,
+        # undefined=StrictUndefined,
     )
 
     def render_static(self, directory):
@@ -45,13 +46,13 @@ class Feed(RSSFeed):
 
 
 if __name__ == "__main__":
-    site = Site(static="static")
+    site = Site()
 
-    @site.render_page
+    @site.page
     class index(Page):
         template = "index.html"
 
-    @site.render_page
+    @site.page
     class rss_redirect_notice(Page):
         template = "python-community-news-archive.rss"
 
@@ -59,7 +60,7 @@ if __name__ == "__main__":
         def url(self):
             return Path("python-community-news-archive.rss")
 
-    @site.render_collection
+    @site.collection
     class archive(Blog):
         has_archive = True
         output_path = "./"
@@ -67,3 +68,6 @@ if __name__ == "__main__":
         template = "new_post.html"
         archive_template: str = "archive.html"
         feed = Feed
+
+
+site.render()

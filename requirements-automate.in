@@ -1,5 +1,5 @@
 # These are the requirements to run the automation tasks
 
 -r requirements.txt
-gh-issues
+gh-issues==0.0.3.dev16
 typer

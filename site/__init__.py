@@ -5,11 +5,14 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from render_engine.blog import Blog
 from render_engine.feeds import RSSFeed
 from render_engine.page import Page
+from render_engine.parsers.markdown import MarkdownPageParser
 from render_engine.site import Site
+from render_engine_tailwindcss import TailwindCSS
 
 
 class Site(Site):
     output_path = "output"
+    static_path = "static"
     site_vars: dict = {
         # TODO: add a new page type that will pull this content in on
         # build and render it as part of the site.
@@ -21,51 +24,50 @@ class Site(Site):
         "YOUTUBE_URL": "https://www.youtube.com/channel/UCA8N-T_aEhHLzwwn47K-UFw",
     }
 
-    engine = Environment(
-        loader=FileSystemLoader(["site/templates", "templates"]),
-        undefined=StrictUndefined,
-    )
+    plugins = [
+        TailwindCSS,
+    ]
 
-    def render_static(self, directory):
-        super().render_static(directory)
-        for file in Path(directory).glob("**/*.css"):
-            pytailwindcss.run(
-                auto_install=True,
-                tailwindcss_cli_args=[
-                    "--input",
-                    f"{file.absolute()}",
-                    "--output",
-                    f"{(self.path / file).absolute()}",
-                ],
-            )
+    @property
+    def engine(self) -> Environment:
+        env = super().engine
+        env.loader.loaders.insert(
+            0, FileSystemLoader(["website/templates", "templates"])
+        )
+        # NOTE: it seems that setting StrictUndefined now breaks the
+        # rss rendering. This is temporarily disabled for the sake of
+        # development until it can be fixed properly.
+        # env.undefined = StrictUndefined
+        return env
 
 
 class Feed(RSSFeed):
-    extension = "xml"
+    extension = ".xml"
 
 
-if __name__ == "__main__":
-    site = Site(static="static")
+site = Site()
 
-    @site.page
-    class index(Page):
-        template = "index.html"
 
-    @site.page
-    class rss_redirect_notice(Page):
-        template = "python-community-news-archive.rss"
+@site.page
+class index(Page):
+    template = "index.html"
 
-        @property
-        def url(self):
-            return Path("python-community-news-archive.rss")
 
-    @site.collection
-    class archive(Blog):
-        has_archive = True
-        output_path = "./"
-        content_path = "./content"
-        template = "new_post.html"
-        archive_template: str = "archive.html"
-        feed = Feed
+@site.page
+class rss_redirect_notice(Page):
+    template = "python-community-news-archive.rss"
 
-    site.render()
+    @property
+    def url(self):
+        return Path("python-community-news-archive.rss")
+
+
+@site.collection
+class archive(Blog):
+    PageParser = MarkdownPageParser
+    has_archive = True
+    output_path = "./"
+    content_path = "content"
+    template = "new_post.html"
+    archive_template: str = "archive.html"
+    feed = Feed

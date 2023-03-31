@@ -72,4 +72,4 @@ class archive(Blog):
     content_path = "content"
     template = "new_post.html"
     archive_template: str = "archive.html"
-    feed = Feed
+    Feed = Feed

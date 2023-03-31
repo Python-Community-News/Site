@@ -6,6 +6,7 @@ from render_engine.blog import Blog
 from render_engine.feeds import RSSFeed
 from render_engine.page import Page
 from render_engine.parsers.markdown import MarkdownPageParser
+from render_engine.plugins import CleanOutput
 from render_engine.site import Site
 from render_engine_tailwindcss import TailwindCSS
 
@@ -25,6 +26,7 @@ class Site(Site):
     }
 
     plugins = [
+        CleanOutput,
         TailwindCSS,
     ]
 

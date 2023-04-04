@@ -5,7 +5,7 @@
             {% for post in pages %}
                 <li>
                     <h2 class="underline">
-                        <a class="hover:font-bold" href="{{ post.url }}">{{ post.title }}</a>
+                        <a class="hover:font-bold" href="{{ post.url_for() }}">{{ post.title }}</a>
                     </h2>
                 </li>
             {% endfor %}

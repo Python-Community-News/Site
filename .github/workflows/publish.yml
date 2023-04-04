@@ -43,7 +43,7 @@ jobs:
 
       - name: Build the site with RenderEngine
         working-directory: site
-        run: python __init__.py
+        run: render-engine build __init__:site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
